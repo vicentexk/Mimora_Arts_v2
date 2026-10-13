@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+/* Paleta inspirada nos slides da Mimora: creme, rosa-pêssego, coral e marrom-chocolate */
+@theme {
+  --font-display: "Fredoka", ui-rounded, system-ui, sans-serif;
+  --font-body: "Nunito", system-ui, -apple-system, sans-serif;
+
+  --color-background: #fdf1e4;
+  --color-foreground: #6b3428;
+  --color-card: #fffdf9;
+  --color-card-foreground: #6b3428;
+  --color-primary: #e8786c;
+  --color-primary-foreground: #fffdf9;
+  --color-accent: #f9b5ab;
+  --color-blush: #fbd9d1;
+  --color-muted: #f7e6da;
+  --color-muted-foreground: #9a5a4c;
+  --color-border: #f3cdc2;
+  --color-ring: #e8786c;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background font-body text-foreground antialiased;
+  }
+  ::selection {
+    background: var(--color-accent);
+    color: var(--color-foreground);
+  }
+}
+
+/* ---------- Estilo "papel recortado" ---------- */
+.paper {
+  background: var(--color-card);
+  transform: rotate(var(--rot, 0deg));
+  box-shadow:
+    0 1px 0 rgba(107, 52, 40, 0.06),
+    0 10px 18px -8px rgba(107, 52, 40, 0.28),
+    0 26px 40px -22px rgba(107, 52, 40, 0.38);
+  transition:
+    transform 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+    box-shadow 0.4s ease;
+}
+
+.paper-hover:hover {
+  transform: rotate(0deg) translateY(-6px) scale(1.02);
+  box-shadow:
+    0 2px 0 rgba(107, 52, 40, 0.06),
+    0 18px 26px -12px rgba(107, 52, 40, 0.3),
+    0 34px 50px -24px rgba(107, 52, 40, 0.4);
+}
+
+/* fita adesiva que prende o papel */
+.tape {
+  position: absolute;
+  width: 96px;
+  height: 26px;
+  background: rgba(249, 181, 171, 0.78);
+  box-shadow: 0 1px 2px rgba(107, 52, 40, 0.12);
+  transform: rotate(var(--tape, -4deg));
+  z-index: 2;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .paper,
+  .paper-hover:hover {
+    transition: none;
+  }
+}
